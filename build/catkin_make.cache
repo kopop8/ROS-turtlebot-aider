@@ -1,0 +1,2 @@
+ble_device_scanner:mover:proximity
+-DCATKIN_DEVEL_PREFIX=/home/pieter/turtlebot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/pieter/turtlebot_ws/install -G Unix Makefiles

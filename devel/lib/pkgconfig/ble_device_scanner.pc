@@ -1,0 +1,8 @@
+prefix=/home/pieter/turtlebot_ws/devel
+
+Name: ble_device_scanner
+Description: Description of ble_device_scanner
+Version: 0.0.0
+Cflags: -I/home/pieter/turtlebot_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: 
