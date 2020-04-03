@@ -10,7 +10,7 @@ beacons = []
 
 ID_MANUFACTURER = "4c000215e2c56db5dffb48d2b060d0f5a71096e0000a"
 
-
+# POSITION has x y z and rssi
 class Position:
     def __init__(self, x, y, z, rssi):
         self._x = float(x)
@@ -23,7 +23,7 @@ class Position:
             return "x: {}, y:{}, rssi: {}".format(self._x, self._y,self._rssi)
     def __repr__(self):
             return str(self)
-
+# BEACON TODO add NAME
 class Beacon:
         def __init__(self, addr):
             self._queue = deque(maxlen=5)
@@ -35,11 +35,12 @@ class Beacon:
             if self._bestPosition == None:
                 self._bestPosition = position
             else:
+                # count total and calculate average rssi
                 total = 0
                 for position in self._queue:
                     total+= position._rssi
                 averageRssi = float(total) / len(self._queue)
-                
+                # if rssi is beter than last bestPosition change it to new position
                 if(averageRssi>self._bestPosition._rssi):
                     tempPosition = None
                     for position in self._queue:
