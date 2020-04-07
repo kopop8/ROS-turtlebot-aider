@@ -10,7 +10,7 @@ def move_to_beacon_client():
 
     client.wait_for_server()
 
-    goal = proximity.msg.BeaconGoal("address")
+    goal = proximity.msg.BeaconGoal("20:91:48:5e:13:eb")
 
     client.send_goal(goal)
 
