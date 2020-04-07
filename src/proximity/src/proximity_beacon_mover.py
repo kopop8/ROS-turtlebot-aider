@@ -2,13 +2,17 @@
 # license removed for brevity
 
 import rospy
-
+import yaml
 # Brings in the SimpleActionClient
 import actionlib
 # Brings in the .action file and messages used by the move base action
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 def movebase_client():
+    with open('/home/pieter/beacons.yaml') as f:
+        # use safe_load instead load
+        dataMap = yaml.load(f,  Loader=yaml.Loader)
+        rospy.loginfo(dataMap[0]._name)
 
    # Create an action client called "move_base" with action definition file "MoveBaseAction"
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)

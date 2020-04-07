@@ -83,7 +83,12 @@ def callback(data):
 
     f.write(yaml.dump(beacons))
     f.close()
-    rospy.loginfo(beacons)
+    rospy.loginfo(yaml.dump(beacons))
+    with open('/home/pieter/beacons.yaml') as f:
+        # use safe_load instead load
+        dataMap = yaml.load(f,  Loader=yaml.Loader)
+        rospy.loginfo(dataMap[0]._name)
+  
     
 def listener():
     rospy.init_node('proximity_beacon_tracker', anonymous=True)
