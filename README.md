@@ -1,3 +1,3 @@
 # ROS-turtlebot-aider
-## TO BUILd
+## To build
 ```catkin_make```
