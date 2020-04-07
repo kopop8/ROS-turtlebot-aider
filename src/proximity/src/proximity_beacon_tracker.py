@@ -84,10 +84,6 @@ def callback(data):
     f.write(yaml.dump(beacons))
     f.close()
     rospy.loginfo(yaml.dump(beacons))
-    with open('/home/pieter/beacons.yaml') as f:
-        # use safe_load instead load
-        dataMap = yaml.load(f,  Loader=yaml.Loader)
-        rospy.loginfo(dataMap[0]._name)
   
     
 def listener():
