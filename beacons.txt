@@ -1,1 +1,0 @@
-[name: Beacon 7e9ec6, best position: x: 0.0, y:0.0, rssi: -79.0 rssis: deque([x: 0.0, y:0.0, rssi: -79.0, x: 0.0, y:0.0, rssi: -79.0], maxlen=5)]
