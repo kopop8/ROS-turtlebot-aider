@@ -4,8 +4,7 @@ from collections import deque
 from std_msgs.msg import String
 from ble_device_scanner.msg import Device, Devices, DeviceTuple
 from nav_msgs.msg import Odometry
-
-
+import yaml
 beacons = []
 
 ID_MANUFACTURER = "4c000215e2c56db5dffb48d2b060d0f5a71096e0000a"
@@ -25,8 +24,9 @@ class Position:
             return str(self)
 # BEACON TODO add NAME
 class Beacon:
-        def __init__(self, addr):
+        def __init__(self, name, addr):
             self._queue = deque(maxlen=5)
+            self._name = name
             self._addr = addr
             self._bestPosition = None
 
@@ -41,17 +41,17 @@ class Beacon:
                     total+= position._rssi
                 averageRssi = float(total) / len(self._queue)
                 # if rssi is beter than last bestPosition change it to new position
-                if(averageRssi>self._bestPosition._rssi):
+                if(averageRssi>=self._bestPosition._rssi):
                     tempPosition = None
                     for position in self._queue:
                         if tempPosition == None:
                             tempPosition = position
-                        elif tempPosition._rssi < position._rssi:
+                        elif tempPosition._rssi <= position._rssi:
                             tempPosition = position
                     self._bestPosition = tempPosition
 
         def __str__(self):
-            return "addr: {}, best position: {} rssis: {}".format(self._addr, self._bestPosition,self._queue)
+            return "name: {}, best position: {} rssis: {}".format(self._name, self._bestPosition,self._queue)
         def __repr__(self):
             return str(self)
 
@@ -62,25 +62,31 @@ def callback(data):
     for device in data.devices:
         for data in device.data:
             if ID_MANUFACTURER in data.value:
+                name = "Beacon {}".format(data.value.replace(ID_MANUFACTURER,''))
                 if len(beacons) == 0:
-                    tempBeacon = Beacon(device.addr)
+                    tempBeacon = Beacon(name, device.addr)
                     tempBeacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
                     beacons.append(tempBeacon)
                 else:
                     foundBeacon = False
                     for beacon in beacons:
+                        # add to queue if beacon already exsists
                         if beacon._addr == device.addr:
                             foundBeacon = True
                             beacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
+                    # add beacon to list if not found
                     if foundBeacon == False:
-                        tempBeacon = Beacon(device.addr)
+                        tempBeacon = Beacon(name, device.addr)
                         tempBeacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
                         beacons.append(tempBeacon)
-    print(beacons)
+    f = open("/home/pieter/beacons.yaml", "w")
 
+    f.write(yaml.dump(beacons))
+    f.close()
+    rospy.loginfo(beacons)
     
 def listener():
-    rospy.init_node('listener', anonymous=True)
+    rospy.init_node('proximity_beacon_tracker', anonymous=True)
     rospy.Subscriber("ble_devices", Devices, callback)
     rospy.spin()
 

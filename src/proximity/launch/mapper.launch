@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+    <arg name="slam_methods" value="cartographer" />
+  </include>
+  <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker" launch-prefix="gnome-terminal --command" output="screen">
+  </node>
+</launch>
