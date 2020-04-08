@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 class Position:
-    def __init__(self, x, y, z, rssi):
+    def __init__(self, x, y, w, rssi):
         self._x = float(x)
         self._y = float(y)
-        self._z = float(z)
+        self._w = float(w)
         self._rssi = float(rssi)
 
 

@@ -7,19 +7,20 @@ from nav_msgs.msg import Odometry
 from beacon import Beacon
 from position import Position
 import yaml
+import tf.msg
+from proximity.msg import RobotPosition
+import geometry_msgs.msg
 beacons = []
 
 ID_MANUFACTURER = "4c000215e2c56db5dffb48d2b060d0f5a71096e0000a"
 
-# POSITION has x y z and rssi
 
-# BEACON TODO add NAME
-
-
-
+def getPosition():
+    position = rospy.wait_for_message("robot_position", RobotPosition)
+    return position
 
 def callback(data):
-    position = rospy.wait_for_message("odom", Odometry).pose.pose.position
+    position = getPosition()
     for device in data.devices:
         for data in device.data:
             if ID_MANUFACTURER in data.value:
@@ -40,8 +41,8 @@ def callback(data):
                         tempBeacon = Beacon(name, device.addr)
                         tempBeacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
                         beacons.append(tempBeacon)
+    # Write beacons to file
     f = open("/home/pieter/beacons.yaml", "w")
-
     f.write(yaml.dump(beacons))
     f.close()
     rospy.loginfo(yaml.dump(beacons))
