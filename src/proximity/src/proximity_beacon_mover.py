@@ -58,14 +58,13 @@ def moveToBeacon(beacon):
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = "map"
     goal.target_pose.header.stamp = rospy.Time.now()
-    #     _x: 4.697539329528809
-    #  _y: 1.6903854608535767
 
-    goal.target_pose.pose.position.x = 4
+    goal.target_pose.pose.position.x = beacon._bestPosition._x
+    goal.target_pose.pose.position.y = beacon._bestPosition._y
 
     # goal.target_pose.pose.position.y = 1.02537715435
 
-    goal.target_pose.pose.orientation.w = 1
+    goal.target_pose.pose.orientation.w = beacon._bestPosition._w
     client.send_goal(goal)
     wait = client.wait_for_result()
 

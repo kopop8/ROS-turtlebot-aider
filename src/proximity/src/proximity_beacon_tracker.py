@@ -27,7 +27,7 @@ def callback(data):
                 name = "Beacon {}".format(data.value.replace(ID_MANUFACTURER,''))
                 if len(beacons) == 0:
                     tempBeacon = Beacon(name, device.addr)
-                    tempBeacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
+                    tempBeacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))
                     beacons.append(tempBeacon)
                 else:
                     foundBeacon = False
@@ -35,11 +35,11 @@ def callback(data):
                         # add to queue if beacon already exsists
                         if beacon._addr == device.addr:
                             foundBeacon = True
-                            beacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
+                            beacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))
                     # add beacon to list if not found
                     if foundBeacon == False:
                         tempBeacon = Beacon(name, device.addr)
-                        tempBeacon.enqueue(Position(position.x,position.y,position.z, device.rssi))
+                        tempBeacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))
                         beacons.append(tempBeacon)
     # Write beacons to file
     f = open("/home/pieter/beacons.yaml", "w")

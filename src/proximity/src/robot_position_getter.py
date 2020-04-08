@@ -8,7 +8,6 @@ if __name__ == '__main__':
     # initialize node
     rospy.init_node('tf_listener')
     # print in console that the node is running
-    rospy.loginfo('started listener node !')
     pub = rospy.Publisher('robot_position', RobotPosition)
     # create tf listener
     listener = tf.TransformListener()
@@ -19,14 +18,13 @@ if __name__ == '__main__':
         try:
             # listen to transform
             (trans,rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
-            # print the transform
-            # rospy.loginfo('---------')
             temp = RobotPosition()
             temp.x = trans[0]
             temp.y = trans[1]
             temp.z = trans[2]
-            # rospy.loginfo('Translation: ' + str(trans))
-            # rospy.loginfo('Rotation: ' + str(rot))
+            temp.w = rot[3]
+            # publish transform
+            rospy.loginfo(trans)
             pub.publish(temp)
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             continue
