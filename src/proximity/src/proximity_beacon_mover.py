@@ -45,7 +45,7 @@ class MoveToBeaconAction(object):
 
 
 def beaconFinder(address):
-    with open('/home/pieter/beacons.yaml') as f:
+    with open('/home/pieter/output/beacons.yaml') as f:
         dataMap = yaml.load(f,  Loader=yaml.Loader)
         for beacon in dataMap:
             if address == beacon._addr:

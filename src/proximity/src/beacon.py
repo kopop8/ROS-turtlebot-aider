@@ -23,8 +23,11 @@ class Beacon:
                     for position in self._queue:
                         if tempPosition == None:
                             tempPosition = position
+                            tempPosition._rssi = averageRssi
                         elif tempPosition._rssi <= position._rssi:
                             tempPosition = position
+                            tempPosition._rssi = averageRssi
+                            
                     self._bestPosition = tempPosition
 
         def __str__(self):

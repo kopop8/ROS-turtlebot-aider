@@ -13,7 +13,7 @@ import geometry_msgs.msg
 beacons = []
 
 ID_MANUFACTURER = "4c000215e2c56db5dffb48d2b060d0f5a71096e0000a"
-
+ID_MOBILE = "4c000215bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb000000009c"
 
 def getPosition():
     position = rospy.wait_for_message("robot_position", RobotPosition)
@@ -25,6 +25,7 @@ def callback(data):
         for data in device.data:
             if ID_MANUFACTURER in data.value:
                 name = "Beacon {}".format(data.value.replace(ID_MANUFACTURER,''))
+                # name = "Beacon 1"
                 if len(beacons) == 0:
                     tempBeacon = Beacon(name, device.addr)
                     tempBeacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))
@@ -42,7 +43,7 @@ def callback(data):
                         tempBeacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))
                         beacons.append(tempBeacon)
     # Write beacons to file
-    f = open("/home/pieter/beacons.yaml", "w")
+    f = open("/home/pieter/output/beacons.yaml", "w")
     f.write(yaml.dump(beacons))
     f.close()
     rospy.loginfo(yaml.dump(beacons))

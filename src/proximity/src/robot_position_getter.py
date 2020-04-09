@@ -11,8 +11,8 @@ if __name__ == '__main__':
     pub = rospy.Publisher('robot_position', RobotPosition)
     # create tf listener
     listener = tf.TransformListener()
-    # set the node to run 1 time per second (1 hz)
-    rate = rospy.Rate(1.0)
+    # set the node to run 10 time per second (10 hz)
+    rate = rospy.Rate(10)
     # loop forever until roscore or this node is down
     while not rospy.is_shutdown():
         try:
@@ -24,7 +24,6 @@ if __name__ == '__main__':
             temp.z = trans[2]
             temp.w = rot[3]
             # publish transform
-            rospy.loginfo(trans)
             pub.publish(temp)
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             continue
