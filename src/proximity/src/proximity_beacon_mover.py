@@ -21,17 +21,23 @@ class MoveToBeaconAction(object):
         self._action_name = name
         self._as = actionlib.SimpleActionServer(self._action_name, proximity.msg.BeaconAction, execute_cb=self.execute_cb, auto_start = False)
         self._as.start()
+        self._client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+        rospy.loginfo('Connecting to move_base...')
+        self._client.wait_for_server()
+        rospy.loginfo('Server ready and waiting for action...')
       
     def execute_cb(self, goal):
+        rospy.loginfo('Got action!')
         r = rospy.Rate(1)
         success = True
-        beacon = beaconFinder(goal.address)
+        beacon = self.beaconFinder(goal.address)
         if beacon == None:
+            rospy.logerr("Beacon with address {} not found".format(goal.address))
             self._feedback.state = "No beacon found with that address"
             success = False
         else:
             self._feedback.state = "Beacon found"
-            result_client = moveToBeacon(beacon)
+            result_client = self.moveToBeacon(beacon)
             if result_client:
                 self._feedback.state = "Navigation done"
 
@@ -44,35 +50,32 @@ class MoveToBeaconAction(object):
 
 
 
-def beaconFinder(address):
-    with open('/home/pieter/output/beacons.yaml') as f:
-        dataMap = yaml.load(f,  Loader=yaml.Loader)
-        for beacon in dataMap:
-            if address == beacon._addr:
-                return beacon
-        return None
+    def beaconFinder(self, address):
+        with open('/home/pieter/output/beacons.yaml') as f:
+            dataMap = yaml.load(f,  Loader=yaml.Loader)
+            for beacon in dataMap:
+                if address == beacon._addr:
+                    return beacon
+            return None
 
-def moveToBeacon(beacon):
-    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
-    client.wait_for_server()
-    goal = MoveBaseGoal()
-    goal.target_pose.header.frame_id = "map"
-    goal.target_pose.header.stamp = rospy.Time.now()
+    def moveToBeacon(self, beacon):
 
-    goal.target_pose.pose.position.x = beacon._bestPosition._x
-    goal.target_pose.pose.position.y = beacon._bestPosition._y
+        goal = MoveBaseGoal()
+        goal.target_pose.header.frame_id = "map"
+        goal.target_pose.header.stamp = rospy.Time.now()
 
-    # goal.target_pose.pose.position.y = 1.02537715435
+        goal.target_pose.pose.position.x = beacon._bestPosition._x
+        goal.target_pose.pose.position.y = beacon._bestPosition._y
 
-    goal.target_pose.pose.orientation.w = beacon._bestPosition._w
-    client.send_goal(goal)
-    wait = client.wait_for_result()
+        goal.target_pose.pose.orientation.w = beacon._bestPosition._w
+        self._client.send_goal(goal)
+        wait = self._client.wait_for_result()
 
-    if not wait:
-        rospy.logerr("Action server not available!")
-        rospy.signal_shutdown("Action server not available!")
-    else:
-        return client.get_result()   
+        if not wait:
+            rospy.logerr("Action server not available!")
+            rospy.signal_shutdown("Action server not available!")
+        else:
+            return self._client.get_result()   
 
 
 

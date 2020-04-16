@@ -25,7 +25,6 @@ def callback(data):
         for data in device.data:
             if ID_MANUFACTURER in data.value:
                 name = "Beacon {}".format(data.value.replace(ID_MANUFACTURER,''))
-                # name = "Beacon 1"
                 if len(beacons) == 0:
                     tempBeacon = Beacon(name, device.addr)
                     tempBeacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))

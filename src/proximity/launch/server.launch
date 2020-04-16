@@ -1,7 +1,9 @@
 <launch>
   <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
-    <arg name="map_file" value="/home/pieter/output/gridmap.yaml" />
+    <arg name="map_file" value="/home/pieter/gridmap.yaml" />
   </include>
   <node pkg="proximity" type="proximity_beacon_mover.py" name="proximity_beacon_mover" launch-prefix="gnome-terminal --command" output="screen">
+  </node>
+  <node pkg="proximity" type="client.py" name="send_beacon_client" launch-prefix="gnome-terminal --command" output="screen">
   </node>
 </launch>
