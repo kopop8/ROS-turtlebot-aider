@@ -9,24 +9,20 @@ app.use(bodyParser.json());
 
 rosnodejs.initNode('my_node', { onTheFly: true })
 .then(() => {
-  //   const proximity = rosnodejs.require('proximity');
-  //   const goal = new proximity.msg.BeaconGoal({ address: 'Hello' });
-  //   const ac = new rosnodejs.SimpleActionClient({
-  //       nh: rosnodejs.nh,
-  //       type: proximity.msg.BeaconAction,
-  //       actionServer: 'move_to_beacon_action'
-  //   });
-  //   ac.waitForServer()
-  // .then(() => {
-  //   rosnodejs.log.info('Connected to action server!');
-  // })
-
-
+    const proximity = rosnodejs.require('proximity');
+    
     app.get('/move',  (req, res) => {
       if(req.body.address){
-      const pub = rosnodejs.nh.advertise('/send_beacon_client', 'std_msgs/String');
-      pub.publish({ data: req.body.address });
+        const ac = new rosnodejs.SimpleActionClient({
+          nh: rosnodejs.nh,
+          type: 'proximity/Beacon',
+          actionServer: '/move_to_beacon_action'
+      });
+      ac.waitForServer().then(() => {
+      rosnodejs.log.info('Connected to action server!');
       res.send('Going to beacon!')
+      ac.sendGoal(new proximity.msg.BeaconGoal({ address: req.body.address }));
+  })
       } else {
         res.status(403).send('Expected address')
       }

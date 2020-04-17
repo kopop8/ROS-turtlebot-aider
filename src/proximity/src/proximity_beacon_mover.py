@@ -27,7 +27,7 @@ class MoveToBeaconAction(object):
         rospy.loginfo('Server ready and waiting for action...')
       
     def execute_cb(self, goal):
-        rospy.loginfo('Got action!')
+        rospy.loginfo('Got action! {}'.format(goal))
         r = rospy.Rate(1)
         success = True
         beacon = self.beaconFinder(goal.address)
