@@ -1,5 +1,5 @@
 <launch>
   <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
-    <arg name="map_file" value="/home/pieter/gridmap.yaml" />
+    <arg name="map_file" value="/home/pi/gridmap.yaml" />
   </include>
 </launch>
