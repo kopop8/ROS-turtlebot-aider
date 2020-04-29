@@ -7,8 +7,9 @@ class Position:
         self._w = float(w)
         self._rssi = float(rssi)
 
-
+    # Overide string
     def __str__(self):
             return "x: {}, y:{}, w:{} rssi: {}".format(self._x, self._y, self._w, self._rssi)
+    #  Overide output
     def __repr__(self):
             return str(self)

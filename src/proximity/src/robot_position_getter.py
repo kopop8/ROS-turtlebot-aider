@@ -19,6 +19,7 @@ if __name__ == '__main__':
             # listen to transform
             (trans,rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
             temp = RobotPosition()
+            # but x y z and w in the RobotPosition Variable.
             temp.x = trans[0]
             temp.y = trans[1]
             temp.z = trans[2]

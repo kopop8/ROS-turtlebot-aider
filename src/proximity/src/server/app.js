@@ -3,25 +3,29 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const rosnodejs = require('rosnodejs');
-// rosnodejs.loadAllPackages();
-// support parsing of application/json type post data
 app.use(bodyParser.json());
 
-rosnodejs.initNode('my_node', { onTheFly: true })
+//  Init server node
+rosnodejs.initNode('server', { onTheFly: true })
 .then(() => {
     const proximity = rosnodejs.require('proximity');
-    
-    app.get('/move',  (req, res) => {
+    // Route to move robot
+    app.post('/move',  (req, res) => {
       if(req.body.address){
-        const ac = new rosnodejs.SimpleActionClient({
+          console.log(req.body.address)
+      // Connect to SimpleActionServer
+      const ac = new rosnodejs.SimpleActionClient({
           nh: rosnodejs.nh,
+          // the type puts ActionGoal in the end automatically
           type: 'proximity/Beacon',
           actionServer: '/move_to_beacon_action'
       });
+      // Wait for it to connect
       ac.waitForServer().then(() => {
       rosnodejs.log.info('Connected to action server!');
-      res.send('Going to beacon!')
-      ac.sendGoal(new proximity.msg.BeaconGoal({ address: req.body.address }));
+      // Send goal to server
+      ac.sendGoal(new proximity.msg.BeaconGoal({ address: req.body.address }))
+      res.status(200).send('Robot going to goal')
   })
       } else {
         res.status(403).send('Expected address')
@@ -29,7 +33,7 @@ rosnodejs.initNode('my_node', { onTheFly: true })
     });
     // Change the 404 message modifing the middleware
     app.use((req, res, next) => {
-        res.status(404).send("Sorry, that route doesn't exist. Have a nice day :)")
+        res.status(404).send("Sorry, that route doesn't exist.")
     });
 
     // start the server in the port 3000 !

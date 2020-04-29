@@ -1,33 +1,34 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
+# license removed for brevity
 
 import rospy
 import actionlib
-import proximity.msg
-from std_msgs.msg import String
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
+def movebase_client():
 
-def move_to_beacon_client(data):
-    rospy.loginfo('Got address {}'.format(data.data))
-    client = actionlib.SimpleActionClient('move_to_beacon_action', proximity.msg.BeaconAction)
-
+    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
     client.wait_for_server()
 
-    # goal = proximity.msg.BeaconGoal("20:91:48:5e:13:eb")
-    goal = proximity.msg.BeaconGoal(str(data.data))
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    goal.target_pose.header.stamp = rospy.Time.now()
+    goal.target_pose.pose.position.x = 0.5
+    goal.target_pose.pose.orientation.w = 1.0
 
     client.send_goal(goal)
-
-    client.wait_for_result()
-
-    return client.get_result()
+    wait = client.wait_for_result()
+    if not wait:
+        rospy.logerr("Action server not available!")
+        rospy.signal_shutdown("Action server not available!")
+    else:
+        return client.get_result()
 
 if __name__ == '__main__':
     try:
-
-        rospy.init_node('send_beacon_client')
-        # result = move_to_beacon_client()
-        rospy.loginfo("Client ready and waiting for action...")
-        rospy.Subscriber("send_beacon_client", String, move_to_beacon_client)
-        rospy.spin()
+        rospy.init_node('movebase_client_py')
+        result = movebase_client()
+        if result:
+            rospy.loginfo("Goal execution done!")
     except rospy.ROSInterruptException:
-        print("rospy.ROSInterruptExceptio")
+        rospy.loginfo("Navigation test finished.")
