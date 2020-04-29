@@ -54,7 +54,7 @@ def callback(data):
                         tempBeacon.enqueue(Position(position.x,position.y,position.z, position.w, device.rssi))
                         beacons.append(tempBeacon)
     # Write beacons to file
-    f = open("/home/pieter/output/beacons.yaml", "w")
+    f = open("/home/pi/output/beacons.yaml", "w")
     f.write(yaml.dump(beacons))
     f.close()
     rospy.loginfo(yaml.dump(beacons))
