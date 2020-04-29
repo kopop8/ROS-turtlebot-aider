@@ -68,9 +68,9 @@ class MoveToBeaconAction(object):
         goal.target_pose.header.frame_id = "map"
         goal.target_pose.header.stamp = rospy.Time.now()
         # Put the position of the found beacon in the new goal 
-        goal.target_pose.pose.position.x = 1
-        goal.target_pose.pose.position.y = 1
-        goal.target_pose.pose.orientation.w = 1
+        goal.target_pose.pose.position.x = beacon._bestPosition._x
+        goal.target_pose.pose.position.y = beacon._bestPosition._y
+        goal.target_pose.pose.orientation.w = beacon._bestPosition._w
         # Send goal to move base server
         self._client.send_goal(goal)
         # Wait for the result
