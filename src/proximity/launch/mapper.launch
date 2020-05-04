@@ -9,4 +9,5 @@
   <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker">
   	
   </node>
+  
 </launch>
