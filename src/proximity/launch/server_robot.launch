@@ -2,6 +2,6 @@
   <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
     <arg name="map_file" value="/home/pi/gridmap.yaml" />
   </include>
-    <node pkg="proximity" type="proximity_beacon_mover.py" name="proximity_beacon_mover">
-  </node>
+    <!-- <node pkg="proximity" type="proximity_beacon_mover.py" name="proximity_beacon_mover">
+  </node> -->
 </launch>

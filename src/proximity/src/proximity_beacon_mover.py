@@ -59,6 +59,7 @@ class MoveToBeaconAction(object):
                 if str(address).lower() == str(beacon._addr).lower():
                     # if found return the beacon.
                     return beacon
+            rospy.logerr("Could not find beacon!")
             return None
 
     # Sends goal to the move base action server
