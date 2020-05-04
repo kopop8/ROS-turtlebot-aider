@@ -51,7 +51,7 @@ class MoveToBeaconAction(object):
 
     # Find beacons in beacons.yaml using address.
     def beaconFinder(self, address):
-        with open('/home/pieter/output/beacons.yaml') as f:
+        with open('/home/pi/output/beacons.yaml') as f:
             # load yaml file
             dataMap = yaml.load(f,  Loader=yaml.Loader)
             for beacon in dataMap:
