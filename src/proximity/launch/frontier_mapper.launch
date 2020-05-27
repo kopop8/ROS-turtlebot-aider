@@ -1,5 +1,6 @@
 <launch>  
   <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="move_forward_only" default="false"/>
   <!--- Robot Setup -->
   <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"></include>
   <!-- AMCL -->
