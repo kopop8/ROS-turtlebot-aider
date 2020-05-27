@@ -19,19 +19,19 @@ def frontier_client():
     client.wait_for_server()
     rospy.loginfo("Server connected!")
    # Creates a new goal with the MoveBaseGoal constructor
-    ac = ExploreTaskGoal()
-    ac.goal.explore_boundary.header.seq = 0
-    ac.goal.explore_boundary.header.stamp.secs = 0
-    ac.goal.explore_boundary.header.stamp.nsecs = 0
-    ac.goal.explore_boundary.header.frame_id = ''
-    ac.goal.explore_boundary.polygon.points = []
-    ac.goal.explore_center.header.seq = 0
-    ac.goal.explore_center.header.stamp.secs = 0
-    ac.goal.explore_center.header.stamp.nsecs = 0
-    ac.goal.explore_center.header.frame_id = ''
-    ac.goal.explore_center.point.x = 0.0
-    ac.goal.explore_center.point.y = 0.0
-    ac.goal.explore_center.point.z = 0.0
+    goal = ExploreTaskGoal()
+    goal.explore_boundary.header.seq = 0
+    goal.explore_boundary.header.stamp.secs = 0
+    goal.explore_boundary.header.stamp.nsecs = 0
+    goal.explore_boundary.header.frame_id = ''
+    goal.explore_boundary.polygon.points = []
+    goal.explore_center.header.seq = 0
+    goal.explore_center.header.stamp.secs = 0
+    goal.explore_center.header.stamp.nsecs = 0
+    goal.explore_center.header.frame_id = ''
+    goal.explore_center.point.x = 0.0
+    goal.explore_center.point.y = 0.0
+    goal.explore_center.point.z = 0.0
     # maybe send explore boundary
     # goal.header.frame_id = "map"
     # goal.header.stamp = rospy.Time.now()
