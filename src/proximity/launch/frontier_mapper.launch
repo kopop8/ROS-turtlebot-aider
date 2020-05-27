@@ -1,0 +1,24 @@
+<arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <!--- Robot Setup -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+  <!-- AMCL -->
+  <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
+  <!-- move_base -->
+  <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+  <!-- frontier_exploration server -->
+  <node pkg="frontier_exploration" type="exploration_server" name="exploration_server" output="screen"/>
+  <!-- Gmapping -->
+  <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+    <arg name="slam_methods" value="gmapping" />
+  </include>
+  <!-- ble device scanner -->
+  <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"></node>
+  <!-- position sender -->
+  <node pkg="proximity" type="robot_position_getter.py" name="robot_position_getter"></node>
+  <!-- beacon position saver -->
+  <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker">
+  	
+  </node>

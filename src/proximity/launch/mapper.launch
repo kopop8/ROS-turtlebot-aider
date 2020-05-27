@@ -1,15 +1,14 @@
 <launch>
-  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch">
-  </include>
+  <!-- Robot setup -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+  <!-- Gmapping -->
   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
     <arg name="slam_methods" value="gmapping" />
   </include>
-  <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"></node>
-  <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch">
-  </include>
-  <node pkg="proximity" type="robot_position_getter.py" name="robot_position_getter"></node>
-  <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker">
-  	
-  </node>
+  <!-- Beacon position saver -->
+  <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"/>
+  <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
+  <node pkg="proximity" type="robot_position_getter.py" name="robot_position_getter"/>
+  <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker"/>
   
 </launch>
