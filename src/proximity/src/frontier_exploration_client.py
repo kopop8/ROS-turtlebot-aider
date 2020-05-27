@@ -7,7 +7,7 @@ import rospy
 import actionlib
 # Brings in the .action file and messages used by the move base action
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from frontier_exploration.msg import ExploreTaskAction, ExploreTaskActionGoal
+from frontier_exploration.msg import ExploreTaskAction, ExploreTaskActionGoal, ExploreTaskGoal
 from geometry_msgs.msg import PointStamped
 from geometry_msgs.msg import PolygonStamped
 def frontier_client():
@@ -19,7 +19,7 @@ def frontier_client():
     client.wait_for_server()
     rospy.loginfo("Server connected!")
    # Creates a new goal with the MoveBaseGoal constructor
-    ac = ExploreTaskActionGoal()
+    ac = ExploreTaskGoal()
     ac.goal.explore_boundary.header.seq = 0
     ac.goal.explore_boundary.header.stamp.secs = 0
     ac.goal.explore_boundary.header.stamp.nsecs = 0
