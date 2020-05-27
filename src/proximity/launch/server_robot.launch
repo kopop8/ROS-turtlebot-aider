@@ -1,9 +1,10 @@
 <launch>
-   <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch">
-  </include>
+  <!-- Robot setup -->
+   <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+    <!-- Navigation setup -->
   <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
     <arg name="map_file" value="/home/pi/gridmap.yaml" />
   </include>
-    <node pkg="proximity" type="proximity_beacon_mover.py" name="move_to_beacon_action" output="screen">
-  </node>
+    <!-- Beacon Move base client -->
+  <node pkg="proximity" type="proximity_beacon_mover.py" name="move_to_beacon_action" output="screen"/>
 </launch>
