@@ -6,7 +6,7 @@
   <!--- Robot Setup -->
   <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"></include>
   <!-- AMCL -->
-  <include file="$(find turtlebot3_navigation)/launch/amcl.launch"></include>
+  <!-- <include file="$(find turtlebot3_navigation)/launch/amcl.launch"></include> -->
   <!-- move_base -->
   <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
     <arg name="model" value="$(arg model)" />
@@ -69,9 +69,9 @@
     <arg name="slam_methods" value="gmapping" />
   </include>
   <!-- ble device scanner -->
-  <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"></node>
+  <!-- <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"></node> -->
   <!-- position sender -->
-  <node pkg="proximity" type="robot_position_getter.py" name="robot_position_getter"></node>
+  <!-- <node pkg="proximity" type="robot_position_getter.py" name="robot_position_getter"></node> -->
   <!-- beacon position saver -->
-  <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker"></node>
+  <!-- <node pkg="proximity" type="proximity_beacon_tracker.py" name="proximity_beacon_tracker"></node> -->
 </launch>
