@@ -27,7 +27,7 @@ def frontier_client():
     goal.goal.explore_center.point.x = 0
     goal.goal.explore_center.point.y = 0
     goal.goal.explore_center.point.z = 0
-    goal.goal.explore_boundary = PointStamped()
+    goal.goal.explore_boundary = PolygonStamped()
    # Sends the goal to the action server
     client.send_goal(goal)
     rospy.loginfo("Send goal!")
