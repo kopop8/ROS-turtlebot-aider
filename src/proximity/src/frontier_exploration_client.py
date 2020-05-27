@@ -21,10 +21,9 @@ def frontier_client():
    # Creates a new goal with the MoveBaseGoal constructor
     goal = ExploreTaskActionGoal()
     # maybe send explore boundary
-    goal.explore_boundary.header.seq = 1
-    goal.target_pose.header.frame_id = "map"
-    goal.target_pose.header.stamp = rospy.Time.now()
-    goal.explore_center.point.x = 1
+    goal.header.frame_id = "map"
+    goal.header.stamp = rospy.Time.now()
+    goal.explore_center.point.x = 0
     goal.explore_center.point.y = 0
     goal.explore_center.point.z = 0
 
