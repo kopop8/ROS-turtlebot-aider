@@ -21,12 +21,12 @@ def frontier_client():
    # Creates a new goal with the MoveBaseGoal constructor
     ac = ExploreTaskActionGoal()
     ac.goal.explore_boundary.header.seq = 0
-    ac.goal.explore_boundary.header.stamp.seq = 0
+    ac.goal.explore_boundary.header.stamp.secs = 0
     ac.goal.explore_boundary.header.stamp.nsecs = 0
     ac.goal.explore_boundary.header.frame_id = ''
     ac.goal.explore_boundary.polygon.points = []
     ac.goal.explore_center.header.seq = 0
-    ac.goal.explore_center.header.stamp.seq = 0
+    ac.goal.explore_center.header.stamp.secs = 0
     ac.goal.explore_center.header.stamp.nsecs = 0
     ac.goal.explore_center.header.frame_id = ''
     ac.goal.explore_center.point.x = 0.0
