@@ -8,7 +8,7 @@ if __name__ == '__main__':
     # initialize node
     rospy.init_node('tf_listener')
     # print in console that the node is running
-    pub = rospy.Publisher('robot_position', RobotPosition)
+    pub = rospy.Publisher('robot_position', RobotPosition ,queue_size=10)
     # create tf listener
     listener = tf.TransformListener()
     # set the node to run 10 time per second (10 hz)

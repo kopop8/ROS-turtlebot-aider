@@ -4,6 +4,7 @@
   <!-- Gmapping -->
   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
     <arg name="slam_methods" value="gmapping" />
+     <arg name="open_rviz" value="false"/>
   </include>
   <!-- Beacon position saver -->
   <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"/>
