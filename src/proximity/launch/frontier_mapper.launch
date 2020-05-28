@@ -2,7 +2,7 @@
   <!-- Robot setup -->
    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
   <!-- Arguments -->
-   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+   <include file="$(find proximity)/launch/turtlebot3_slam.launch">
     <arg name="slam_methods" value="frontier_exploration" />
     <arg name="open_rviz" value="false"/>
   </include>
