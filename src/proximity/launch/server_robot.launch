@@ -2,7 +2,7 @@
   <!-- Robot setup -->
    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
     <!-- Navigation setup -->
-  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+  <include file="$(find proximity)/launch/turtlebot3_navigation.launch">
     <arg name="map_file" value="/home/pi/gridmap.yaml" />
   </include>
     <!-- Beacon Move base client -->
