@@ -30,4 +30,4 @@ sensor:
 
 inflation:
   # 0.15
-  inflation_radius: 0.22
+  inflation_radius: 0.15
