@@ -17,12 +17,12 @@
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-    <rosparam file="$(find proximity)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find proximity)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find proximity)/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find proximity)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find proximity)/param/move_base_params.yaml" command="load" />
-    <rosparam file="$(find proximity)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
+    <rosparam file="$(find proximity)/param/frontier/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find proximity)/param/frontier/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find proximity)/param/frontier/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find proximity)/param/frontier/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find proximity)/param/frontier/move_base_params.yaml" command="load" />
+    <rosparam file="$(find proximity)/param/frontier/dwa_local_planner_params_$(arg model).yaml" command="load" />
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
@@ -32,7 +32,7 @@
   <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen" >
     <param name="frequency" type="double" value="1.0"/>
     <param name="goal_aliasing" type="double" value="$(arg sensor_range)"/>
-    <rosparam file="$(find proximity)/param/costmap_common_params_$(arg model).yaml" command="load" ns="explore_costmap" />
+    <rosparam file="$(find proximity)/param/frontier/costmap_common_params_$(arg model).yaml" command="load" ns="explore_costmap" />
     <rosparam file="$(find proximity)/config/frontier_exploration.yaml" command="load" ns="explore_costmap" />
   </node>
 </launch>
