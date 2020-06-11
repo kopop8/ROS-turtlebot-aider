@@ -25,19 +25,12 @@ def frontier_client():
     goal.explore_boundary.header.stamp = rospy.Time.now()
     goal.explore_boundary.header.frame_id = 'map'
     goal.explore_boundary.polygon.points = []
-
+    # Empty goal so explore everything 
     goal.explore_center.header.stamp = rospy.Time.now()
     goal.explore_center.header.frame_id = ''
     goal.explore_center.point.x = 0.0
     goal.explore_center.point.y = 0.0
     goal.explore_center.point.z = 0.0
-    # maybe send explore boundary
-    # goal.header.frame_id = "map"
-    # goal.header.stamp = rospy.Time.now()
-    # goal.goal.explore_center.point.x = 0
-    # goal.goal.explore_center.point.y = 0
-    # goal.goal.explore_center.point.z = 0
-    # goal.goal.explore_boundary = PolygonStamped()
    # Sends the goal to the action server
     client.send_goal(goal)
     rospy.loginfo("Send goal!")
