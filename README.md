@@ -5,7 +5,7 @@
 ## Make a map
 We first need to make a map with bluetooth beacons.
 ### Frontier exploration mapper [Robot]
-Run mapper ```roslaunch proximity frontier_mapper.launch```
+Run mapper ```roslaunch proximity frontier_mapper.launch``` (saves map automatically when done)
 ### Manual mapper [Robot]
 Run mapper ```roslaunch proximity mapper.launch```
 Save map ```rosrun map_server map_saver -f gridmap```
