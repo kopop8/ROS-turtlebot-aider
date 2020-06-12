@@ -17,5 +17,5 @@ We now have a map with bluetooth beacons now we need to start the server and rob
 First install node modules in server map ```npm install```
 run server in server map: ```node app.js```
 ### Setup robot [Robot]
-run server: ```roslaunch server_robot.launch```
+run robot: ```roslaunch server_robot.launch```
 You can now send an emergency signal to the robot! The robot will drive to the closest beacon.
