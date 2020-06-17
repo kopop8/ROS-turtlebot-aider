@@ -7,7 +7,7 @@ import rospy
 import actionlib
 import os
 # Brings in the .action file and messages used by the move base action
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoalt
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from frontier_exploration.msg import ExploreTaskAction, ExploreTaskActionGoal, ExploreTaskGoal
 from geometry_msgs.msg import PointStamped
 from geometry_msgs.msg import PolygonStamped
