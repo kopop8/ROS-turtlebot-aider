@@ -13,6 +13,7 @@ from geometry_msgs.msg import PointStamped
 from geometry_msgs.msg import PolygonStamped
 
 def saveMap():
+    #Save map
     os.system('rosrun map_server map_saver -f toesting')
     return 0
 
