@@ -14,7 +14,7 @@ from geometry_msgs.msg import PolygonStamped
 
 def saveMap():
     #Save map
-    os.system('rosrun map_server map_saver -f toesting')
+    os.system('rosrun map_server map_saver -f gridmap')
     return 0
 
 def frontier_client():
