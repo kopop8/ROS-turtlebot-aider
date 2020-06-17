@@ -5,11 +5,17 @@ import rospy
 
 # Brings in the SimpleActionClient
 import actionlib
+import os
 # Brings in the .action file and messages used by the move base action
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoalt
 from frontier_exploration.msg import ExploreTaskAction, ExploreTaskActionGoal, ExploreTaskGoal
 from geometry_msgs.msg import PointStamped
 from geometry_msgs.msg import PolygonStamped
+
+def saveMap():
+    os.system('rosrun map_server map_saver -f toesting')
+    return 0
+
 def frontier_client():
 
    # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -53,5 +59,6 @@ if __name__ == '__main__':
         result = frontier_client()
         if result:
             rospy.loginfo("Goal execution done!")
+            saveMap()
     except rospy.ROSInterruptException:
-        rospy.loginfo("Navigation test finished.")
+        rospy.loginfo("Navigation error.")
