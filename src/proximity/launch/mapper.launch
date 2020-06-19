@@ -7,7 +7,8 @@
      <arg name="open_rviz" value="false"/>
   </include>
   <!-- Remote -->
-    <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
+  <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
+  <node pkg="controller" type="Joyteleop_turtlebot3.py" name="Joyteleop_turtlebot3" />
   <!-- Beacon position saver -->
   <node pkg="ble_device_scanner" name="ble_scanner" type="ble_scanner.py"/>
 
